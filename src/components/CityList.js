@@ -1,7 +1,7 @@
-const CityList = ({ cities }) => {
+const CityList = ({ cityList }) => {
   return (
     <div>
-      {cities.map((city) => {
+      {cityList.map((city) => {
         return (
           <div className="tl bg-light-gray br3 pa1 ma2 shadow-5 dark-blue grow">
             <p>{city}</p>

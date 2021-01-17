@@ -11,5 +11,20 @@
 }
 
 .right-sections {
+  width: 81%;
   float: left;
+}
+
+img {
+  vertical-align: middle;
+  height: 60px;
+  width: 60px;
+}
+
+.hide {
+  display: none;
+}
+
+.show {
+  display: block;
 }

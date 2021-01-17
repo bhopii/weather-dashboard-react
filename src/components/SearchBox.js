@@ -1,5 +1,6 @@
+
 import PageviewIcon from "@material-ui/icons/Pageview";
-import { TextField, Grid } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import "./SearchBox.css";
 
 const SearchBox = (props) => {
@@ -7,10 +8,10 @@ const SearchBox = (props) => {
     <div className="srchBox">
       <Grid container direction="row" alignItems="center">
         <Grid item xs>
-          <TextField variant="outlined" style={{ backgroundColor: "white" }} />
+          <input type="text" name="cityName" value={props.cityName} onChange={props.handleChange}/>
         </Grid>
         <Grid item xs>
-          <PageviewIcon style={{ fontSize: 40 }} />
+          <PageviewIcon style={{ fontSize: 40 }} onClick={props.handleSearch}/>
         </Grid>
       </Grid>
     </div>
