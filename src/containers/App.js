@@ -57,7 +57,6 @@ function App() {
       </div>
       <div className="right-sections">
         <CurrentWeather current={currentWeather} />
-
         <WeatherForecast forecasts={forecast} />
       </div>
     </div>

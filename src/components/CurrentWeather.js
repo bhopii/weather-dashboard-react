@@ -31,7 +31,11 @@ const CurrentWeather = ({ current }) => {
         {current.city} ({API.getFormattedDate(current.dt)}){" "}
         <span>
           <img
-            src=""
+            src={current.weather? 
+              "http://openweathermap.org/img/wn/" +
+              current.weather[0].icon +
+              "@2x.png" : ""
+            }
             alt="icon"
           />
         </span>
