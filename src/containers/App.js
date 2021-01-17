@@ -1,19 +1,16 @@
 import "./App.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "../components/Header";
 import SearchBox from "../components/SearchBox";
 import CurrentWeather from "../components/CurrentWeather";
 import WeatherForecast from "../components/WeatherForecast";
 import CityList from "../components/CityList";
 import API from "../utils/API";
-import { forecasts } from "../dummy/forecasts";
-import { current } from "../dummy/current";
-import { cities } from "../dummy/cities";
 
 function App() {
-  const [cityName, setCityName] = useState("");
+  const [cityName, setCityName] = useState("Atlanta");
   const [cityList, setCityList] = useState([]);
-  const [currentWeather, setCurrentWeather] = useState({isPresent:false});
+  const [currentWeather, setCurrentWeather] = useState({});
   const [forecast, setForecast] = useState([]);
 
   const handleCityChange = (event) => {
@@ -22,25 +19,26 @@ function App() {
 
   const searchWeatherData = async (city) => {
     console.log("Searching for city", city);
-    let geoLocationRes = await API.getGeoLocation(city);
-    console.log(geoLocationRes)
-    let weatherData = await API.getWeatherData(
-      geoLocationRes.data.latt,
-      geoLocationRes.data.longt
-    );
-    console.log(weatherData);
-    setCurrentWeather({
-      currentCityName: city,
-      currentDate: API.getFormattedDate(weatherData.data.current.dt),
-      currentImage: weatherData.data.current.weather[0].icon,
-      currentTemp: weatherData.data.current.temp,
-      currentHumidity: weatherData.data.current.humidity,
-      currentWindSpeed: weatherData.data.current.wind_speed,
-      uvIndex: weatherData.data.current.uvi,
-      currentDesc: weatherData.data.current.weather[0].description,
-      isPresent:true
-    });
+    let { latt, longt } = (await API.getGeoLocation(city)).data;
+    searchDataForGeoLocation(latt, longt);
   };
+
+  const searchDataForGeoLocation = async (latt, longt, cityName) => {
+    if (latt !== "0.00000" && longt !== "0.00000") {
+      let { current, daily } = (await API.getWeatherData(latt, longt)).data;
+      setCurrentWeather(current);
+      setForecast(daily);
+      setCityList(cityList.concat(cityName));
+    }
+  };
+
+  useEffect(() => {
+    if (localStorage.getItem("cities")) {
+      setCityList(localStorage.getItem("cities"));
+    } else {
+      setCityList([]);
+    }
+  }, []);
 
   const handleCitySearch = (event) => {
     searchWeatherData(cityName);
@@ -55,10 +53,10 @@ function App() {
           handleChange={handleCityChange}
           handleSearch={handleCitySearch}
         />
-        <CityList cityList={cities} />
+        <CityList cityList={cityList} />
       </div>
       <div className="right-sections">
-        <CurrentWeather currentWeather={currentWeather} />
+        <CurrentWeather current={currentWeather} />
 
         <WeatherForecast forecasts={forecast} />
       </div>

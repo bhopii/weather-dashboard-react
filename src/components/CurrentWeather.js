@@ -1,50 +1,52 @@
 import "./CurrentWeather.css";
-const CurrentWeather = ({ currentWeather }) => {
+import API from "../utils/API";
+
+const CurrentWeather = ({ current }) => {
+  if (!current && Object.keys(current).length <= 0) {
+    return null;
+  }
+  console.log(current);
   let uvStyle;
-  if (currentWeather.uvIndex <= 2) {
-    uvStyle = { backgroundColor: "green", color: "white" };
-  } else if ((currentWeather.uvIndex >= 3) & (currentWeather.uvIndex <= 5)) {
+  if (current.uvi <= 2) {
+    uvStyle = { backgroundColor: "green", color: "white", width: "20px" };
+  } else if ((current.uvi >= 3) & (current.uvi <= 5)) {
     uvStyle = { backgroundColor: "yellow", color: "white" };
-  } else if ((currentWeather.uvIndex >= 6) & (currentWeather.uvIndex <= 7)) {
+  } else if ((current.uvi >= 6) & (current.uvi <= 7)) {
     uvStyle = { backgroundColor: "orange", color: "white" };
-  } else if ((currentWeather.uvIndex >= 8) & (currentWeather.uvIndex <= 10)) {
+  } else if ((current.uvi >= 8) & (current.uvi <= 10)) {
     uvStyle = { backgroundColor: "red", color: "white" };
   } else {
     uvStyle = { backgroundColor: "violet", color: "white" };
   }
+
   return (
     <div
       className={
-        currentWeather.isPresent
+        current
           ? "show currentWeather shadow-5 container-fluid bg-white"
           : "hide"
       }
     >
       <h1>
-        {currentWeather.currentCityName} ({currentWeather.currentDate}){" "}
+        {current.city} ({API.getFormattedDate(current.dt)}){" "}
         <span>
           <img
-            src={
-              "http://openweathermap.org/img/wn/" +
-              currentWeather.currentImage +
-              "@2x.png"
-            }
+            src=""
             alt="icon"
           />
-          {currentWeather.currentDesc.split(" ").map((word) => word[0].toUpperCase() + word.substring(1)).join(" ")}
         </span>
       </h1>
       <p>
-        <b>Temperature:</b> {currentWeather.currentTemp} °F
+        <b>Temperature:</b> {current.temp} °F
       </p>
       <p>
-        <b>Humidity:</b> {currentWeather.currentHumidity}%
+        <b>Humidity:</b> {current.humidity}%
       </p>
       <p>
-        <b>Wind Speed:</b> {currentWeather.currentWindSpeed} MPH
+        <b>Wind Speed:</b> {current.wind_speed} MPH
       </p>
       <p>
-        <b>UV Index:</b> <span style={uvStyle}>{currentWeather.uvIndex}</span>
+        <b>UV Index:</b> <span style={uvStyle}>{current.uvi}</span>
       </p>
     </div>
   );

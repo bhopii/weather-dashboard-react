@@ -1,8 +1,6 @@
 import axios from "axios";
 
-
-
-export default {
+const API = {
     getGeoLocation: async function(cityName) {
         return axios.get(`https://geocode.xyz/${cityName}?json=1&auth=610405802004470916946x35671`);
     },
@@ -13,9 +11,8 @@ export default {
 
     getFormattedDate: function(epochDate) {
         let date = new Date(epochDate * 1000);
-        let day = date.getDate();
-        let month = date.getMonth();
-        let year = date.getFullYear();
-        return month + 1 + "/" + day + "/" + year;
+        return date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear();
     }
-}
+};
+
+export default API;
