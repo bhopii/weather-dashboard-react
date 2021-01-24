@@ -17,27 +17,28 @@ function App() {
     setCityName(event.target.value);
   };
 
-  const searchWeatherData = async (city) => {
+  const searchWeatherData = (city) => {
     console.log("Searching for city", city);
-    let { latt, longt } = (await API.getGeoLocation(city)).data;
-    searchDataForGeoLocation(latt, longt);
-  };
-
-  const searchDataForGeoLocation = async (latt, longt, cityName) => {
-    if (latt !== "0.00000" && longt !== "0.00000") {
-      let { current, daily } = (await API.getWeatherData(latt, longt)).data;
+    API.getWeatherData(city).then((resp) => {
+      let { current, daily } = resp.data;
       setCurrentWeather(current);
       setForecast(daily);
-      setCityList(cityList.concat(cityName));
-    }
+      API.addCity(city).then((resAdd) => {
+        setCityList(cityList.append(city));
+      });
+    });
   };
 
   useEffect(() => {
-    if (localStorage.getItem("cities")) {
-      setCityList(localStorage.getItem("cities"));
-    } else {
-      setCityList([]);
-    }
+    API.getCities().then((res) => {
+      setCityList(res.data);
+    });
+
+    API.getWeatherData(cityName).then((resp) => {
+      let { current, daily } = resp.data;
+      setCurrentWeather(current);
+      setForecast(daily);
+    });
   }, []);
 
   const handleCitySearch = (event) => {
@@ -46,18 +47,20 @@ function App() {
 
   return (
     <div>
-      <Header />
-      <div className="left-sections">
-        <SearchBox
-          cityName={cityName}
-          handleChange={handleCityChange}
-          handleSearch={handleCitySearch}
-        />
-        <CityList cityList={cityList} />
-      </div>
-      <div className="right-sections">
-        <CurrentWeather current={currentWeather} />
-        <WeatherForecast forecasts={forecast} />
+    {/* <Header /> */}
+      <div className="main-section">
+        <div className="left-sections">
+          <SearchBox
+            cityName={cityName}
+            handleChange={handleCityChange}
+            handleSearch={handleCitySearch}
+          />
+          <CityList cityList={cityList} />
+        </div>
+        <div className="right-sections">
+          <CurrentWeather current={currentWeather} />
+          <WeatherForecast forecasts={forecast} />
+        </div>
       </div>
     </div>
   );
