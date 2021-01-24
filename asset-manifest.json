@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/weather-dashboard-react/static/css/main.d026ed1f.chunk.css",
+    "main.js": "/weather-dashboard-react/static/js/main.f09fcce0.chunk.js",
+    "main.js.map": "/weather-dashboard-react/static/js/main.f09fcce0.chunk.js.map",
+    "runtime-main.js": "/weather-dashboard-react/static/js/runtime-main.21a2fa45.js",
+    "runtime-main.js.map": "/weather-dashboard-react/static/js/runtime-main.21a2fa45.js.map",
+    "static/css/2.31461e4f.chunk.css": "/weather-dashboard-react/static/css/2.31461e4f.chunk.css",
+    "static/js/2.b1e5a76b.chunk.js": "/weather-dashboard-react/static/js/2.b1e5a76b.chunk.js",
+    "static/js/2.b1e5a76b.chunk.js.map": "/weather-dashboard-react/static/js/2.b1e5a76b.chunk.js.map",
+    "static/js/3.66112002.chunk.js": "/weather-dashboard-react/static/js/3.66112002.chunk.js",
+    "static/js/3.66112002.chunk.js.map": "/weather-dashboard-react/static/js/3.66112002.chunk.js.map",
+    "index.html": "/weather-dashboard-react/index.html",
+    "static/css/2.31461e4f.chunk.css.map": "/weather-dashboard-react/static/css/2.31461e4f.chunk.css.map",
+    "static/css/main.d026ed1f.chunk.css.map": "/weather-dashboard-react/static/css/main.d026ed1f.chunk.css.map",
+    "static/js/2.b1e5a76b.chunk.js.LICENSE.txt": "/weather-dashboard-react/static/js/2.b1e5a76b.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.21a2fa45.js",
+    "static/css/2.31461e4f.chunk.css",
+    "static/js/2.b1e5a76b.chunk.js",
+    "static/css/main.d026ed1f.chunk.css",
+    "static/js/main.f09fcce0.chunk.js"
+  ]
+}
