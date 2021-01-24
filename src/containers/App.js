@@ -19,26 +19,30 @@ function App() {
 
   const searchWeatherData = (city) => {
     console.log("Searching for city", city);
-    API.getWeatherData(city).then((resp) => {
-      let { current, daily } = resp.data;
-      setCurrentWeather(current);
-      setForecast(daily);
-      API.addCity(city).then((resAdd) => {
-        setCityList(cityList.append(city));
+    API.getWeatherData(city)
+      .then((resp) => {
+        let { current, daily } = resp.data;
+        setCurrentWeather(current);
+        setForecast(daily);
+        API.addCity(city).then(resAdd => {
+          setCityList(cityList.append(city));
+        })
       });
-    });
   };
+
+  
 
   useEffect(() => {
     API.getCities().then((res) => {
       setCityList(res.data);
     });
 
-    API.getWeatherData(cityName).then((resp) => {
-      let { current, daily } = resp.data;
-      setCurrentWeather(current);
-      setForecast(daily);
-    });
+    API.getWeatherData(cityName)
+      .then((resp) => {
+        let { current, daily } = resp.data;
+        setCurrentWeather(current);
+        setForecast(daily);
+      });
   }, []);
 
   const handleCitySearch = (event) => {
@@ -47,20 +51,18 @@ function App() {
 
   return (
     <div>
-    {/* <Header /> */}
-      <div className="main-section">
-        <div className="left-sections">
-          <SearchBox
-            cityName={cityName}
-            handleChange={handleCityChange}
-            handleSearch={handleCitySearch}
-          />
-          <CityList cityList={cityList} />
-        </div>
-        <div className="right-sections">
-          <CurrentWeather current={currentWeather} />
-          <WeatherForecast forecasts={forecast} />
-        </div>
+      <Header />
+      <div className="left-sections">
+        <SearchBox
+          cityName={cityName}
+          handleChange={handleCityChange}
+          handleSearch={handleCitySearch}
+        />
+        <CityList cityList={cityList} />
+      </div>
+      <div className="right-sections">
+        <CurrentWeather current={currentWeather} />
+        <WeatherForecast forecasts={forecast} />
       </div>
     </div>
   );

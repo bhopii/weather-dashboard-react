@@ -7,3 +7,8 @@
   margin-left: 10px;
   margin-bottom: 10px;
 }
+
+.movers-row {
+  display: flex;
+  justify-content: space-between;
+}
